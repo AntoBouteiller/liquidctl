@@ -78,9 +78,7 @@ import os
 import platform
 import re
 import sys
-from importlib.metadata import distribution, version, PackageNotFoundError
-from numbers import Number
-from traceback import format_exception
+from importlib.metadata import PackageNotFoundError, distribution, version
 
 import colorlog
 from docopt import docopt
@@ -89,7 +87,6 @@ from liquidctl import __version__
 from liquidctl.driver import *
 from liquidctl.error import LiquidctlError
 from liquidctl.util import color_from_str, fan_mode_parser
-
 
 # conversion from CLI arg to internal option; as options as forwarded to bused
 # and drivers, they must:
@@ -251,6 +248,7 @@ def _dev_status_obj(dev, status):
         'bus': dev.bus,
         'address': dev.address,
         'description': dev.description,
+        'port': '.'.join(map(str, dev.port)) if dev.port else None,
         'status': [convert(x) for x in status]
     }
 
@@ -400,7 +398,7 @@ def run_interactive(dev, errors):
 
             print(json.dumps(outer_json, ensure_ascii=(os.getenv('LANG', None) == 'C'),
                     default=lambda x: str(x)))
-    except EOFError as err:
+    except EOFError:
         _LOGGER.debug('interactive mode ended by EOF')
     except LiquidctlError as err:
         errors.log(f'{dev.description}: {err}', err=err)
@@ -443,16 +441,16 @@ def main():
 
     if sys.platform == 'win32':
         log_colors = {
-            'DEBUG': f'bold_blue',
-            'INFO': f'bold_purple',
+            'DEBUG': 'bold_blue',
+            'INFO': 'bold_purple',
             'WARNING': 'yellow,bold',
             'ERROR': 'red,bold',
             'CRITICAL': 'red,bold,bg_white',
         }
     else:
         log_colors = {
-            'DEBUG': f'blue',
-            'INFO': f'purple',
+            'DEBUG': 'blue',
+            'INFO': 'purple',
             'WARNING': 'yellow,bold',
             'ERROR': 'red,bold',
             'CRITICAL': 'red,bold,bg_white',
