@@ -1,8 +1,7 @@
-import pytest
-from _testutils import VirtualBusDevice, VirtualControlMode
-
 import json
 import sys
+
+import pytest
 
 import liquidctl.cli
 
@@ -54,6 +53,7 @@ def test_json_initialize(main):
         {
             'bus': 'virtual',
             'address': 'virtual_address',
+            'port': None,
             'description': 'Virtual Bus Device',
             'status': [
                 { 'key': 'Firmware version', 'value': '3.14.16', 'unit': '' },
@@ -73,6 +73,7 @@ def test_json_status(main):
             'bus': 'virtual',
             'address': 'virtual_address',
             'description': 'Virtual Bus Device',
+            'port': None,
             'status': [
                 { 'key': 'Temperature', 'value': 30.4, 'unit': '°C' },
                 { 'key': 'Fan control mode', 'value': 'VirtualControlMode.QUIET', 'unit': '' },
