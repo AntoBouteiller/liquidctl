@@ -1,6 +1,6 @@
 # liquidctl – liquid cooler control
 
-Custom made liquidctl with a simple interactive mode to stop [FanControl.Liquidctl](https://github.com/SuspiciousActivity/FanControl.Liquidctl) from starting the program every second. Works for my machine (Kraken X63) but not tested for anything else at all, **use at your own risk**. This applies to the FanControl repo as well.
+Updated version of the custom made liquidctl by @SuspiciousActivity with a simple interactive mode to stop [FanControl.Liquidctl](https://github.com/SuspiciousActivity/FanControl.Liquidctl) from starting the program every second.
 
 _Cross-platform tool and drivers for liquid coolers and other devices_
 
@@ -59,44 +59,44 @@ Corsair Vengeance RGB DIMM4
 # liquidctl --match "smart device" set led color moving-alternating "hsv(30,98,100)" "hsv(30,98,10)" --speed slower
 ```
 
-
 ## Contents
+
 [Contents]: #contents
 
 1. [Supported devices]
 1. [Installation]
-    1. [Linux distributions]
-    1. [macOS Homebrew]
-    2. [FreeBSD and DragonFly BSD Ports]
-    1. [Manual installation]
-        1. [Linux dependencies]
-        1. [macOS system dependencies]
-        1. [Windows system dependencies]
-        1. [Creating a virtual environment]
-        1. [Installing from PyPI or GitHub]
-        1. [Allowing access to the devices]
-        1. [Additional files]
-    1. [Working locally]
+   1. [Linux distributions]
+   1. [macOS Homebrew]
+   1. [FreeBSD and DragonFly BSD Ports]
+   1. [Manual installation]
+      1. [Linux dependencies]
+      1. [macOS system dependencies]
+      1. [Windows system dependencies]
+      1. [Creating a virtual environment]
+      1. [Installing from PyPI or GitHub]
+      1. [Allowing access to the devices]
+      1. [Additional files]
+   1. [Working locally]
 1. [The command-line interface]
-    1. [Listing and selecting devices]
-    1. [Initializing and interacting with devices]
-    1. [Supported color specification formats]
+   1. [Listing and selecting devices]
+   1. [Initializing and interacting with devices]
+   1. [Supported color specification formats]
 1. [Using liquidctl in other programs and scripts]
 1. [Automation and running at boot]
-    1. [Set up Linux using systemd]
-    1. [Set up Windows using Task Scheduler]
-    1. [Set up macOS using various methods]
+   1. [Set up Linux using systemd]
+   1. [Set up Windows using Task Scheduler]
+   1. [Set up macOS using various methods]
 1. [Troubleshooting]
 1. [Additional documentation]
 1. [License]
 1. [Related projects]
 
-
 ## Supported devices
+
 [Supported devices]: #supported-devices
 
-The following devices are supported by liquidctl.  In the table, MRLV stands
-for the _minimum recommended liquidctl version._  The linked documents contain
+The following devices are supported by liquidctl. In the table, MRLV stands
+for the _minimum recommended liquidctl version._ The linked documents contain
 specific usage instructions and other useful information.
 
 <!--
@@ -119,52 +119,52 @@ Device notes are sorted alphabetically, major (upper case) notes before minor
 
 -->
 
-| Type               | Device family and specific documentation | Notes | MRLV |
-| :--                | :-- | --: | :-: |
-| AIO liquid cooler  | [ASUS Ryujin II 360](docs/asus-ryujin-guide.md) | <sup>_p_</sup> | git |
-| AIO liquid cooler  | [Corsair Hydro H110i GT](docs/coolit-guide.md) | <sup>_p_</sup> | git |
-| AIO liquid cooler  | [Corsair Hydro H80i GT, H100i GTX, H110i GTX](docs/asetek-690lc-guide.md) | <sup>_Z_</sup> | 1.9.1 |
-| AIO liquid cooler  | [Corsair Hydro H80i v2, H100i v2, H115i](docs/asetek-690lc-guide.md) | <sup>_Z_</sup> | 1.9.1 |
-| AIO liquid cooler  | [Corsair Hydro Pro H100i, H115i, H150i](docs/asetek-pro-guide.md) | <sup>_Z_</sup> | 1.9.1 |
-| AIO liquid cooler  | [Corsair Hydro Platinum H100i, H100i SE, H115i](docs/corsair-platinum-pro-xt-guide.md) | | 1.8.1 |
-| AIO liquid cooler  | [Corsair Hydro Pro XT H60i, H100i, H115i, H150i](docs/corsair-platinum-pro-xt-guide.md) | | 1.8.1 |
-| AIO liquid cooler  | [Corsair iCUE Elite Capellix H100i, H115i, H150i](docs/corsair-commander-core-guide.md) | <sup>_Bp_</sup> | git |
-| AIO liquid cooler  | [Corsair iCUE Elite RGB H100i, H150i](docs/corsair-platinum-pro-xt-guide.md) | | 1.13.0 |
-| AIO liquid cooler  | [Corsair iCUE Elite RGB H115i](docs/corsair-platinum-pro-xt-guide.md) | | git |
-| AIO liquid cooler  | [EVGA CLC 120 (CL12), 240, 280, 360](docs/asetek-690lc-guide.md) | <sup>_Z_</sup> | 1.9.1 |
-| AIO liquid cooler  | [MSI MPG Coreliquid K360](docs/msi-mpg-coreliquid-guide.md) | <sup>_p_</sup> | git |
-| AIO liquid cooler  | [NZXT Kraken M22](docs/kraken-x2-m2-guide.md) | | 1.10.0 |
-| AIO liquid cooler  | [NZXT Kraken X40, X60](docs/asetek-690lc-guide.md) | <sup>_LZ_</sup> | 1.9.1 |
-| AIO liquid cooler  | [NZXT Kraken X31, X41, X61](docs/asetek-690lc-guide.md) | <sup>_LZ_</sup> | 1.9.1 |
-| AIO liquid cooler  | [NZXT Kraken X42, X52, X62, X72](docs/kraken-x2-m2-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| AIO liquid cooler  | [NZXT Kraken X53, X63, X73](docs/kraken-x3-z3-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| AIO liquid cooler  | [NZXT Kraken Z53, Z63, Z73](docs/kraken-x3-z3-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| AIO liquid cooler  | ~~[NZXT Kraken 2023 Standard, Elite](docs/kraken-x3-z3-guide.md)~~ | <sup>_B_</sup> | git |
-| Pump controller    | [Aquacomputer D5 Next](docs/aquacomputer-d5next-guide.md) | <sup>_hp_</sup> | 1.11.1 |
-| Fan/LED controller | [Aquacomputer Octo](docs/aquacomputer-octo-guide.md) | <sup>_hp_</sup> | 1.11.1 |
-| Fan/LED controller | [Aquacomputer Quadro](docs/aquacomputer-quadro-guide.md) | <sup>_hp_</sup> | 1.11.1 |
-| Fan/LED controller | [Corsair Commander Pro](docs/corsair-commander-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| Fan/LED controller | [Corsair Commander Core, Core XT, ST](docs/corsair-commander-core-guide.md) | <sup>_Bp_</sup> | git |
-| Fan/LED controller | [Corsair Lighting Node Core, Pro](docs/corsair-commander-guide.md) | | 1.8.1 |
-| Fan/LED controller | [Corsair Obsidian 1000D](docs/corsair-commander-guide.md) | | 1.9.1 |
-| Fan/LED controller | [NZXT Grid+ V3](docs/nzxt-smart-device-v1-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| Fan/LED controller | [NZXT HUE 2, HUE 2 Ambient](docs/nzxt-hue2-guide.md) | | 1.7.2 |
-| Fan/LED controller | [NZXT RGB & Fan Controller](docs/nzxt-hue2-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| Fan/LED controller | [NZXT RGB & Fan Controller (3+6 channels)](docs/nzxt-hue2-guide.md) | <sup>_hp_</sup> | 1.12.1 |
-| Fan/LED controller | [NZXT Smart Device](docs/nzxt-smart-device-v1-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| Fan/LED controller | [NZXT Smart Device V2](docs/nzxt-hue2-guide.md) | <sup>_h_</sup> | 1.11.1 |
-| Fan/LED controller | [NZXT H1 V2](docs/nzxt-hue2-guide.md) | | 1.10.0 |
-| DDR4 memory        | [Corsair Vengeance RGB](docs/ddr4-guide.md) | <sup>_Uax_</sup> | 1.7.2 |
-| DDR4 memory        | [Generic DDR4 temperature sensor](docs/ddr4-guide.md) | <sup>_Uax_</sup> | 1.8.1 |
-| Power supply       | [Corsair HX750i, HX850i, HX1000i, HX1200i](docs/corsair-hxi-rmi-psu-guide.md) | <sup>_h_</sup> | 1.12.1 |
-| Power supply       | [Corsair HX1000i (2022), HX1500i](docs/corsair-hxi-rmi-psu-guide.md) | <sup>_h_</sup> | 1.13.0 |
-| Power supply       | [Corsair RM650i, RM750i, RM850i, RM1000i](docs/corsair-hxi-rmi-psu-guide.md) | <sup>_h_</sup> | 1.12.1 |
-| Power supply       | [NZXT E500, E650, E850](docs/nzxt-e-series-psu-guide.md) | <sup>_p_</sup> | 1.7.2 |
-| LED controller     | [Aquacomputer Farbwerk 360](docs/aquacomputer-farbwerk360-guide.md) | <sup>_hp_</sup> | 1.11.1 |
-| Graphics card RGB  | [Select ASUS GTX and RTX cards](docs/nvidia-guide.md) | <sup>_Ux_</sup> | 1.9.1 |
-| Graphics card RGB  | [Select EVGA GTX 1070, 1070 Ti and 1080 cards](docs/nvidia-guide.md) | <sup>_Ux_</sup> | 1.9.1 |
-| Motherboard RGB    | [ASUS Aura LED motherboards](docs/asus-aura-led-guide.md) | | 1.10.0 |
-| Motherboard RGB    | [Gigabyte RGB Fusion 2.0 motherboards](docs/gigabyte-rgb-fusion2-guide.md) | | 1.5.2 |
+| Type               | Device family and specific documentation                                                |            Notes |  MRLV  |
+| :----------------- | :-------------------------------------------------------------------------------------- | ---------------: | :----: |
+| AIO liquid cooler  | [ASUS Ryujin II 360](docs/asus-ryujin-guide.md)                                         |   <sup>_p_</sup> |  git   |
+| AIO liquid cooler  | [Corsair Hydro H110i GT](docs/coolit-guide.md)                                          |   <sup>_p_</sup> |  git   |
+| AIO liquid cooler  | [Corsair Hydro H80i GT, H100i GTX, H110i GTX](docs/asetek-690lc-guide.md)               |   <sup>_Z_</sup> | 1.9.1  |
+| AIO liquid cooler  | [Corsair Hydro H80i v2, H100i v2, H115i](docs/asetek-690lc-guide.md)                    |   <sup>_Z_</sup> | 1.9.1  |
+| AIO liquid cooler  | [Corsair Hydro Pro H100i, H115i, H150i](docs/asetek-pro-guide.md)                       |   <sup>_Z_</sup> | 1.9.1  |
+| AIO liquid cooler  | [Corsair Hydro Platinum H100i, H100i SE, H115i](docs/corsair-platinum-pro-xt-guide.md)  |                  | 1.8.1  |
+| AIO liquid cooler  | [Corsair Hydro Pro XT H60i, H100i, H115i, H150i](docs/corsair-platinum-pro-xt-guide.md) |                  | 1.8.1  |
+| AIO liquid cooler  | [Corsair iCUE Elite Capellix H100i, H115i, H150i](docs/corsair-commander-core-guide.md) |  <sup>_Bp_</sup> |  git   |
+| AIO liquid cooler  | [Corsair iCUE Elite RGB H100i, H150i](docs/corsair-platinum-pro-xt-guide.md)            |                  | 1.13.0 |
+| AIO liquid cooler  | [Corsair iCUE Elite RGB H115i](docs/corsair-platinum-pro-xt-guide.md)                   |                  |  git   |
+| AIO liquid cooler  | [EVGA CLC 120 (CL12), 240, 280, 360](docs/asetek-690lc-guide.md)                        |   <sup>_Z_</sup> | 1.9.1  |
+| AIO liquid cooler  | [MSI MPG Coreliquid K360](docs/msi-mpg-coreliquid-guide.md)                             |   <sup>_p_</sup> |  git   |
+| AIO liquid cooler  | [NZXT Kraken M22](docs/kraken-x2-m2-guide.md)                                           |                  | 1.10.0 |
+| AIO liquid cooler  | [NZXT Kraken X40, X60](docs/asetek-690lc-guide.md)                                      |  <sup>_LZ_</sup> | 1.9.1  |
+| AIO liquid cooler  | [NZXT Kraken X31, X41, X61](docs/asetek-690lc-guide.md)                                 |  <sup>_LZ_</sup> | 1.9.1  |
+| AIO liquid cooler  | [NZXT Kraken X42, X52, X62, X72](docs/kraken-x2-m2-guide.md)                            |   <sup>_h_</sup> | 1.11.1 |
+| AIO liquid cooler  | [NZXT Kraken X53, X63, X73](docs/kraken-x3-z3-guide.md)                                 |   <sup>_h_</sup> | 1.11.1 |
+| AIO liquid cooler  | [NZXT Kraken Z53, Z63, Z73](docs/kraken-x3-z3-guide.md)                                 |   <sup>_h_</sup> | 1.11.1 |
+| AIO liquid cooler  | ~~[NZXT Kraken 2023 Standard, Elite](docs/kraken-x3-z3-guide.md)~~                      |   <sup>_B_</sup> |  git   |
+| Pump controller    | [Aquacomputer D5 Next](docs/aquacomputer-d5next-guide.md)                               |  <sup>_hp_</sup> | 1.11.1 |
+| Fan/LED controller | [Aquacomputer Octo](docs/aquacomputer-octo-guide.md)                                    |  <sup>_hp_</sup> | 1.11.1 |
+| Fan/LED controller | [Aquacomputer Quadro](docs/aquacomputer-quadro-guide.md)                                |  <sup>_hp_</sup> | 1.11.1 |
+| Fan/LED controller | [Corsair Commander Pro](docs/corsair-commander-guide.md)                                |   <sup>_h_</sup> | 1.11.1 |
+| Fan/LED controller | [Corsair Commander Core, Core XT, ST](docs/corsair-commander-core-guide.md)             |  <sup>_Bp_</sup> |  git   |
+| Fan/LED controller | [Corsair Lighting Node Core, Pro](docs/corsair-commander-guide.md)                      |                  | 1.8.1  |
+| Fan/LED controller | [Corsair Obsidian 1000D](docs/corsair-commander-guide.md)                               |                  | 1.9.1  |
+| Fan/LED controller | [NZXT Grid+ V3](docs/nzxt-smart-device-v1-guide.md)                                     |   <sup>_h_</sup> | 1.11.1 |
+| Fan/LED controller | [NZXT HUE 2, HUE 2 Ambient](docs/nzxt-hue2-guide.md)                                    |                  | 1.7.2  |
+| Fan/LED controller | [NZXT RGB & Fan Controller](docs/nzxt-hue2-guide.md)                                    |   <sup>_h_</sup> | 1.11.1 |
+| Fan/LED controller | [NZXT RGB & Fan Controller (3+6 channels)](docs/nzxt-hue2-guide.md)                     |  <sup>_hp_</sup> | 1.12.1 |
+| Fan/LED controller | [NZXT Smart Device](docs/nzxt-smart-device-v1-guide.md)                                 |   <sup>_h_</sup> | 1.11.1 |
+| Fan/LED controller | [NZXT Smart Device V2](docs/nzxt-hue2-guide.md)                                         |   <sup>_h_</sup> | 1.11.1 |
+| Fan/LED controller | [NZXT H1 V2](docs/nzxt-hue2-guide.md)                                                   |                  | 1.10.0 |
+| DDR4 memory        | [Corsair Vengeance RGB](docs/ddr4-guide.md)                                             | <sup>_Uax_</sup> | 1.7.2  |
+| DDR4 memory        | [Generic DDR4 temperature sensor](docs/ddr4-guide.md)                                   | <sup>_Uax_</sup> | 1.8.1  |
+| Power supply       | [Corsair HX750i, HX850i, HX1000i, HX1200i](docs/corsair-hxi-rmi-psu-guide.md)           |   <sup>_h_</sup> | 1.12.1 |
+| Power supply       | [Corsair HX1000i (2022), HX1500i](docs/corsair-hxi-rmi-psu-guide.md)                    |   <sup>_h_</sup> | 1.13.0 |
+| Power supply       | [Corsair RM650i, RM750i, RM850i, RM1000i](docs/corsair-hxi-rmi-psu-guide.md)            |   <sup>_h_</sup> | 1.12.1 |
+| Power supply       | [NZXT E500, E650, E850](docs/nzxt-e-series-psu-guide.md)                                |   <sup>_p_</sup> | 1.7.2  |
+| LED controller     | [Aquacomputer Farbwerk 360](docs/aquacomputer-farbwerk360-guide.md)                     |  <sup>_hp_</sup> | 1.11.1 |
+| Graphics card RGB  | [Select ASUS GTX and RTX cards](docs/nvidia-guide.md)                                   |  <sup>_Ux_</sup> | 1.9.1  |
+| Graphics card RGB  | [Select EVGA GTX 1070, 1070 Ti and 1080 cards](docs/nvidia-guide.md)                    |  <sup>_Ux_</sup> | 1.9.1  |
+| Motherboard RGB    | [ASUS Aura LED motherboards](docs/asus-aura-led-guide.md)                               |                  | 1.10.0 |
+| Motherboard RGB    | [Gigabyte RGB Fusion 2.0 motherboards](docs/gigabyte-rgb-fusion2-guide.md)              |                  | 1.5.2  |
 
 <sup>_B_</sup> _Known to be currently broken in at least one major way._<br>
 <sup>_L_</sup> _Requires the `--legacy-690lc` flag._<br>
@@ -175,13 +175,14 @@ Device notes are sorted alphabetically, major (upper case) notes before minor
 <sup>_p_</sup> _Only partially supported._<br>
 <sup>_x_</sup> _Only supported on Linux._<br>
 
-
 ## Installation
+
 [Installation]: #installation
 
 The following sections cover the various methods to set up liquidctl.
 
 ### Linux distributions
+
 [Linux distributions]: #linux-distributions
 
 A considerable number of Linux distributions already package liquidctl,
@@ -205,16 +206,17 @@ nix-env -iA nixos.liquidctl
 ```
 
 liquidctl is also available in some non-official/community-based repositories,
-as well as, at older versions, for more distributions.  [Repology] shows more
+as well as, at older versions, for more distributions. [Repology] shows more
 information about the packaging status in various distributions.
 
 [Repology]: https://repology.org/project/liquidctl/versions
 
 ### macOS Homebrew
+
 [macOS Homebrew]: #macos-homebrew
 
 For macOS, liquidctl is available on Homebrew, generally at the most recent
-version.  It is also easy to install the latest development snapshot from the
+version. It is also easy to install the latest development snapshot from the
 official source code repository.
 
 ```bash
@@ -226,6 +228,7 @@ brew install liquidctl --HEAD
 ```
 
 ### FreeBSD and DragonFly BSD Ports
+
 [FreeBSD and DragonFly BSD Ports]: #freebsd-and-dragonfly-bsd-ports
 
 On FreeBSD and DragonFly BSD, liquidctl is maintained in the Ports Collections,
@@ -236,6 +239,7 @@ pkg install py39-liquidctl
 ```
 
 ### Manual installation
+
 [Manual installation]: #manual-installation
 
 _Warning: on systems that still default to Python 2, replace `python`
@@ -247,17 +251,18 @@ liquidctl can be manually installed from the Python Package Index (PyPI), or
 directly from the source code repository.
 
 In order to manually install it, certain system-level dependencies must be
-satisfied first.  In some cases it may also be preferable to use the Python
+satisfied first. In some cases it may also be preferable to use the Python
 libraries already provided by the operating system.
 
 #### Linux dependencies
+
 [Linux dependencies]: #linux-dependencies
 
 On Linux, the following dependencies are required at runtime (common package
 names are listed in parenthesis):
 
 - Python 3.8 or later _(python3, python)_
-- pkg\_resources Python package _(python3-setuptools, python3-pkg-resources, python-setuptools)_
+- pkg*resources Python package *(python3-setuptools, python3-pkg-resources, python-setuptools)\_
 - PyUSB _(python3-pyusb, python3-usb, python-pyusb)_
 - colorlog _(python3-colorlog, python-colorlog)_
 - crcmod 1.7 _(python3-crcmod, python-crcmod)_
@@ -270,11 +275,12 @@ names are listed in parenthesis):
 Additionally, to build, install and test liquidctl, the following are also
 needed:
 
-- setuptools\_scm Python package _(python3-setuptools-scm, python3-setuptools_scm, python-setuptools-scm)_
+- setuptools*scm Python package *(python3-setuptools-scm, python3-setuptools*scm, python-setuptools-scm)*
 - pip (optional) _(python3-pip, python-pip)_
 - pytest (optional) _(python3-pytest, pytest, python-pytest)_
 
 #### macOS system-level dependencies
+
 [macOS system dependencies]: #macos-system-level-dependencies
 
 On macOS, Python (3.8 or later) and LibUSB 1.0 must be installed beforehand.
@@ -284,10 +290,11 @@ brew install python libusb
 ```
 
 #### Windows system-level dependencies
+
 [Windows system dependencies]: #windows-system-level-dependencies
 
 On Windows, Python (3.8 or later) must be installed beforehand, which can be
-done from the [official website][python.org].  It is recommended to select the
+done from the [official website][python.org]. It is recommended to select the
 option to add `python` and other tools to the `PATH`.
 
 A LibUSB 1.0 DLL is also necessary, but it will generally be provided
@@ -299,7 +306,7 @@ from LibUSB (e.g. `VS2015-x64/dll/libusb-1.0.dll`).
 
 Additionally, products that are not Human Interface Devices (HIDs), or that do
 not use the Microsoft HID Driver, require a libusb-compatible driver (these are
-listed in [Supported devices] with a `Z` note).  In most cases of these cases
+listed in [Supported devices] with a `Z` note). In most cases of these cases
 the Microsoft WinUSB driver is recommended, and it can easily be set up for a
 device using [Zadig]: open Zadig, select your device from the dropdown list
 and, finally, click "Replace Driver".
@@ -315,9 +322,10 @@ there are suitable wheels available at the time of installation._<br>
 [Zadig]: https://zadig.akeo.ie/
 
 #### Creating a virtual environment
+
 [Creating a virtual environment]: #creating-a-virtual-environment
 
-Setting up a virtual environment is an optional step.  Even so, installing
+Setting up a virtual environment is an optional step. Even so, installing
 Python packages directly in the global environment is not generally advised.
 
 Instead, it is usual to first set up a [virtual environment]:
@@ -344,11 +352,11 @@ directory.
 [virtual environment]: https://docs.python.org/3/library/venv.html
 
 #### Installing from PyPI or GitHub
+
 [Installing from PyPI or GitHub]: #installing-from-pypi-or-github
 
 [pip] can be used to install liquidctl from the Python Package Index (PyPI).
 This will also install the necessary Python libraries.
-
 
 ```bash
 # the latest stable version
@@ -372,15 +380,16 @@ python -m pip install git+https://github.com/liquidctl/liquidctl#egg=liquidctl
 To set up rootless access to devices on Linux and BSDs, install documentation and completions, or to learn more about auxiliary scripts, continue reading for the next few sections.
 
 #### Allowing access to the devices
+
 [Allowing access to the devices]: #allowing-access-to-the-devices
 
 Access permissions are not a concern on platforms like macOS or Windows, where
-unprivileged access is already allowed by default.  However, devices are not
+unprivileged access is already allowed by default. However, devices are not
 generally accessible by unprivileged users on Linux, FreeBSD or DragonFly BSD.
 
 For Linux, we provide a set of udev rules in [`71-liquidctl.rules`] that can be
 used to allow unprivileged read and write access to all devices supported by
-liquidctl.  These rules are generally already included in downstream Linux
+liquidctl. These rules are generally already included in downstream Linux
 packages of liquidctl.
 
 Alternatively, `sudo`, `doas` and similar mechanisms can be used to invoke
@@ -389,6 +398,7 @@ Alternatively, `sudo`, `doas` and similar mechanisms can be used to invoke
 [`71-liquidctl.rules`]: extra/linux/71-liquidctl.rules
 
 #### Additional files
+
 [Additional files]: #additional-files
 
 Other files and tools are included in the source tree, which may be of use in
@@ -407,6 +417,7 @@ certain scenarios:
 [yoda.py]: extra/yoda.py
 
 ### Working locally
+
 [Working locally]: #working-locally
 
 _Changed in 1.9.0: liquidctl now uses a PEP 517 build system._<br>
@@ -416,7 +427,7 @@ development environment, making it possible to directly run the CLI and the
 test suite, without first building and installing a local package.
 
 For this, start by installing [git] and any system-level dependencies mentioned
-in [Manual installation].  Then, clone the repository and change into the
+in [Manual installation]. Then, clone the repository and change into the
 created directory:
 
 ```
@@ -438,7 +449,7 @@ python -m pip install --upgrade "smbus; sys_platform == 'linux'"
 python -m pip install --upgrade "winusbcdc>=1.5; sys_platform == 'win32'"
 ```
 
-At this point, the environment is set up.  To run the test suite, execute:
+At this point, the environment is set up. To run the test suite, execute:
 
 ```
 python -m pytest
@@ -458,17 +469,19 @@ python -m pip install .
 ```
 
 ## Introducing the command-line interface
+
 [The command-line interface]: #introducing-the-command-line-interface
 
 The complete list of commands and options can be found in `liquidctl --help` and in the man page, but the following topics cover the most common operations.
 
-Brackets `[ ]`, parenthesis `( )`, less than/greater than `< >` and ellipsis `...` are used to describe, respectively, optional, required, positional and repeating elements.  Example commands are prefixed with a number sign `#`, which also serves to indicate that on Linux root permissions (or suitable udev rules) may be required.
+Brackets `[ ]`, parenthesis `( )`, less than/greater than `< >` and ellipsis `...` are used to describe, respectively, optional, required, positional and repeating elements. Example commands are prefixed with a number sign `#`, which also serves to indicate that on Linux root permissions (or suitable udev rules) may be required.
 
-The `--verbose` option will print some extra information, like automatically made adjustments to user-provided settings.  And if there is a problem, the `--debug` flag will make liquidctl output more information to help identify its cause; be sure to include this when opening a new issue.
+The `--verbose` option will print some extra information, like automatically made adjustments to user-provided settings. And if there is a problem, the `--debug` flag will make liquidctl output more information to help identify its cause; be sure to include this when opening a new issue.
 
 _Note: in addition to `--debug`, setting the `PYUSB_DEBUG=debug` and `LIBUSB_DEBUG=4` environment variables can be helpful with problems suspected to relate to PyUSB or LibUSB._
 
 ### Listing and selecting devices
+
 [Listing and selecting devices]: #listing-and-selecting-devices
 
 A good place to start is to ask liquidctl to list all recognized devices.
@@ -486,7 +499,7 @@ $ liquidctl --match kraken list
 Result #0: NZXT Kraken X (X42, X52, X62 or X72)
 ```
 
-More device properties can be show by passing `--verbose` to `liquidctl list`.  Any of those can also be used to select a particular product.
+More device properties can be show by passing `--verbose` to `liquidctl list`. Any of those can also be used to select a particular product.
 
 ```
 $ liquidctl --bus hid --address /dev/hidraw4 list
@@ -499,9 +512,10 @@ Result #0: NZXT Kraken X (X42, X52, X62 or X72)
 Ambiguities for any given filter can be solved with `--pick <number>`.
 
 ### Initializing and interacting with devices
+
 [Initializing and interacting with devices]: #initializing-and-interacting-with-devices
 
-Devices will usually need to be initialized before they can be used, though each device has its own requirements and limitations.  This and other information specific to a particular device will appear on the documentation linked from the [Supported devices] section.
+Devices will usually need to be initialized before they can be used, though each device has its own requirements and limitations. This and other information specific to a particular device will appear on the documentation linked from the [Supported devices] section.
 
 Devices can be initialized individually or all at once.
 
@@ -509,37 +523,38 @@ Devices can be initialized individually or all at once.
 # liquidctl [options] initialize [all]
 ```
 
-Most devices provide some status information, like fan speeds and liquid temperatures.  This can be queried for all devices or using the filtering methods mentioned before.
+Most devices provide some status information, like fan speeds and liquid temperatures. This can be queried for all devices or using the filtering methods mentioned before.
 
 ```
 # liquidctl [options] status
 ```
 
-Fan and pump speeds can be set to fixed values or, if the device supports them, custom profiles.  The specific documentation for each device will list the available modes, as well as which sensor is used for custom profiles.  In general, liquid coolers only support custom profiles that are based on the internal liquid temperature probe.
+Fan and pump speeds can be set to fixed values or, if the device supports them, custom profiles. The specific documentation for each device will list the available modes, as well as which sensor is used for custom profiles. In general, liquid coolers only support custom profiles that are based on the internal liquid temperature probe.
 
 ```
 # liquidctl [options] set <channel> speed (<temperature> <percentage>) ...
 # liquidctl [options] set <channel> speed <percentage>
 ```
 
-Lighting is controlled in a similar fashion.  The specific documentation for each device will list the available channels, modes and additional options.
+Lighting is controlled in a similar fashion. The specific documentation for each device will list the available channels, modes and additional options.
 
 ```
 # liquidctl [options] set <channel> color <mode> [<color>] ...
 ```
 
 ### Supported color specification formats
+
 [Supported color specification formats]: #supported-color-specification-formats
 
 When configuring lighting effects, colors can be specified in different representations and formats:
 
- - as an implicit hexadecimal RGB triple, either with or without the `0x` prefix: e.g. `ff7f3f`
- - as an explicit RGB triple: e.g. `rgb(255, 127, 63)`
- - as a HSV (hue‑saturation‑value) triple: e.g. `hsv(20, 75, 100)`
-    * hue ∊ [0, 360] (degrees); saturation, value ∊ [0, 100] (percent)
-    * note: this is sometimes called HSB (hue‑saturation‑brightness)
-  - as a HSL (hue‑saturation‑lightness) triple: e.g. `hsl(20, 100, 62)`
-    * hue ∊ [0, 360] (degrees); saturation, lightness ∊ [0, 100] (percent)
+- as an implicit hexadecimal RGB triple, either with or without the `0x` prefix: e.g. `ff7f3f`
+- as an explicit RGB triple: e.g. `rgb(255, 127, 63)`
+- as a HSV (hue‑saturation‑value) triple: e.g. `hsv(20, 75, 100)`
+  - hue ∊ [0, 360] (degrees); saturation, value ∊ [0, 100] (percent)
+  - note: this is sometimes called HSB (hue‑saturation‑brightness)
+- as a HSL (hue‑saturation‑lightness) triple: e.g. `hsl(20, 100, 62)`
+  - hue ∊ [0, 360] (degrees); saturation, lightness ∊ [0, 100] (percent)
 
 Color arguments containing spaces, parenthesis or commas need to be quoted, as these characters can have special meaning on the command-line; the easiest way to do this on all supported platforms is with double quotes.
 
@@ -549,8 +564,8 @@ Color arguments containing spaces, parenthesis or commas need to be quoted, as t
 
 On Linux it is also possible to use single-quotes and `\(`, `\)`, `\ ` escape sequences.
 
-
 ## Using liquidctl in other programs and scripts
+
 [Using liquidctl in other programs and scripts]: #using-liquidctl-in-other-programs-and-scripts
 
 The liquidctl driver APIs can be used to build Python programs that monitor or
@@ -654,32 +669,33 @@ characters to be escaped.
 ```
 
 Note that the examples above pipe the output to [jq], as the original output
-has no line breaks or indentation.  An alternative to jq is to use [`python -m
+has no line breaks or indentation. An alternative to jq is to use [`python -m
 json.tool`][json.tool], which is already included in standard Python
 distributions.
 
 Finally, the stability of both the APIs and the CLI commands is documented in
-our [stability guarantee].  In particular, the specific keys, values and units
+our [stability guarantee]. In particular, the specific keys, values and units
 returned by the commands above, as well as their API equivalents, _are subject
-to changes._  Consumers should verify that the returned data matches their
+to changes._ Consumers should verify that the returned data matches their
 expectations, and react accordingly.
 
 [jq]: https://stedolan.github.io/jq/
 [json.tool]: https://docs.python.org/3/library/json.html#module-json.tool
 [stability guarantee]: docs/developer/process.md#stability-and-backward-compatibility
 
-
 ## Automation and running at boot
+
 [Automation and running at boot]: #automation-and-running-at-boot
 
-In most cases you will want to automatically apply your settings when the system boots.  Generally a simple script or a basic service is enough, and some specifics about this are given in the following sections.
+In most cases you will want to automatically apply your settings when the system boots. Generally a simple script or a basic service is enough, and some specifics about this are given in the following sections.
 
 For even more flexibility, you can also write a Python program that calls the driver APIs directly.
 
 ### Set up Linux using systemd
+
 [Set up Linux using systemd]: #set-up-linux-using-systemd
 
-On systems running Linux and systemd a service unit can be used to configure liquidctl devices.  A simple example is provided bellow, which you can edit to match your preferences.  Save it to `/etc/systemd/system/liquidcfg.service`.
+On systems running Linux and systemd a service unit can be used to configure liquidctl devices. A simple example is provided bellow, which you can edit to match your preferences. Save it to `/etc/systemd/system/liquidcfg.service`.
 
 ```
 [Unit]
@@ -710,9 +726,10 @@ A slightly more complex example can be seen at [jonasmalacofilho/dotfiles](https
 If necessary, it is also possible to have the service unit explicitly wait for the device to be available: see [making systemd units wait for devices](docs/linux/making-systemd-units-wait-for-devices.md).
 
 ### Set up Windows using Task Scheduler
+
 [Set up Windows using Task Scheduler]: #set-up-windows-using-task-scheduler
 
-The configuration of devices can be automated by writing a batch file and setting up a new task for (every) login using Windows Task Scheduler.  The batch file can be really simple and only needs to contain the invocations of liquidctl that would otherwise be done manually.
+The configuration of devices can be automated by writing a batch file and setting up a new task for (every) login using Windows Task Scheduler. The batch file can be really simple and only needs to contain the invocations of liquidctl that would otherwise be done manually.
 
 ```batchfile
 liquidctl initialize all
@@ -726,11 +743,12 @@ Make sure that liquidctl is available in the context where the batch file will r
 
 You may need to install Python with the option to set the PATH variable enabled, or manually add the necessary folders to the PATH.
 
-A slightly more complex example can be seen in [issue #14](https://github.com/liquidctl/liquidctl/issues/14#issuecomment-456519098) ("Can I autostart liquidctl on Windows?"), that uses the LEDs to convey progress or eventual errors.  Chris' guide on [Replacing NZXT’s CAM software on Windows for Kraken](https://codecalamity.com/replacing-nzxts-cam-software-on-windows-for-kraken/) is also a good read.
+A slightly more complex example can be seen in [issue #14](https://github.com/liquidctl/liquidctl/issues/14#issuecomment-456519098) ("Can I autostart liquidctl on Windows?"), that uses the LEDs to convey progress or eventual errors. Chris' guide on [Replacing NZXT’s CAM software on Windows for Kraken](https://codecalamity.com/replacing-nzxts-cam-software-on-windows-for-kraken/) is also a good read.
 
 As an alternative to using Task Scheduler, the batch file can simply be placed in the startup folder; you can run `shell:startup` to [find out where that is](https://support.microsoft.com/en-us/help/4026268/windows-10-change-startup-apps).
 
 ### Set up macOS using various methods
+
 [Set up macOS using various methods]: #set-up-macos-using-various-methods
 
 You can follow either or both of the guides below to automatically configure your devices during login or after waking from sleep. The guides are hosted on tonymacx86:
@@ -738,13 +756,13 @@ You can follow either or both of the guides below to automatically configure you
 - [This guide](https://www.tonymacx86.com/threads/gigabyte-z490-vision-d-thunderbolt-3-i5-10400-amd-rx-580.298642/post-2138475) is for controllers that lose their state during sleep (e.g. Gigabyte RGB Fusion 2.0) and need to be reinitialized after wake-from-sleep. This guide uses _Automator_ to initialize supported devices at login, and _sleepwatcher_ to initialize supported devices after wake-from-sleep.
 - [This guide](https://www.tonymacx86.com/threads/asus-z690-proart-creator-wifi-thunderbolt-4-i7-12700k-amd-rx-6800-xt.318311/post-2306524) is for controllers that do not lose their state during sleep (e.g. ASUS Aura LED). This driver uses the _launchctl_ method to initialize supported devices at login.
 
-
 ## Troubleshooting
+
 [Troubleshooting]: #troubleshooting
 
 ### Device not listed (Windows)
 
-This is likely caused by having replaced the standard driver of a USB HID.  If the device in question is not marked in [Supported devices] as requiring a special driver, try uninstalling the custom driver.
+This is likely caused by having replaced the standard driver of a USB HID. If the device in question is not marked in [Supported devices] as requiring a special driver, try uninstalling the custom driver.
 
 ### Device not listed (Linux)
 
@@ -762,28 +780,28 @@ A more permanent solution is to politely ask the authors of the program that is 
 
 ### Access denied or open failed (Linux)
 
-These errors are usually caused by a lack of permission to access the device.  On Linux distros that normally requires root privileges.
+These errors are usually caused by a lack of permission to access the device. On Linux distros that normally requires root privileges.
 
 Alternatively to running liquidctl as root (or with `sudo`), you can install the udev rules provided in [`extra/linux/71-liquidctl.rules`](extra/linux/71-liquidctl.rules) to allow unprivileged access to the devices supported by liquidctl.
 
 ### Other problems
 
-If your problem is not listed here, try searching the [issues](https://github.com/liquidctl/liquidctl/issues).  If no issue matches your problem, you still need help, or you have found a bug, please open one.
+If your problem is not listed here, try searching the [issues](https://github.com/liquidctl/liquidctl/issues). If no issue matches your problem, you still need help, or you have found a bug, please open one.
 
-When commenting on an issue, please describe the problem in as much detail as possible.  List your operating system and the specific devices you own.
+When commenting on an issue, please describe the problem in as much detail as possible. List your operating system and the specific devices you own.
 
 Also include the arguments and output of all relevant/failing liquidctl commands, using the `--debug` option to enable additional debug information.
 
-
 ## Additional documentation
+
 [Additional documentation]: #additional-documentation
 
 Be sure to browse [`docs/`](docs/) for additional documentation, and [`extra/`](extra/) for some example scripts and other possibly useful things.
 
 You are also encouraged to contribute to the documentation and to these examples, including adding new files that cover your specific use cases or solutions.
 
-
 ## License
+
 [License]: #license
 
 Copyright 2018–2023 Jonas Malaco, Marshall Asch, CaseySJ, Tom Frey, Andrew
@@ -801,13 +819,13 @@ version.
 
 This program is distributed in the hope that it will be useful, but without any
 warranty; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
-this program.  If not, see <https://www.gnu.org/licenses/>.
-
+this program. If not, see <https://www.gnu.org/licenses/>.
 
 ## Related projects
+
 [Related projects]: #related-projects
 
 ### [liquidctl/liquidtux](https://github.com/liquidctl/liquidtux)
